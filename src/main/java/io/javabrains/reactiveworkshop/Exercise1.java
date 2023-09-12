@@ -38,6 +38,12 @@ public class Exercise1 {
         System.out.println("Print first names in userStream for users that have IDs from number stream");
         StreamSources.userStream().filter(user -> StreamSources.intNumbersStream().anyMatch(integer -> integer == user.getId())).forEach(user -> System.out.println(user.getFirstName()));
 
+        System.out.println("Print first names in userStream for users that have IDs from number stream version 2");
+        StreamSources.intNumbersStream()
+                .flatMap(id -> StreamSources.userStream().filter(user -> user.getId() == id))
+                .map(user -> user.getFirstName())
+                .forEach(username -> System.out.println(username));
+
     }
 
 }
